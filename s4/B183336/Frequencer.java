@@ -1,19 +1,19 @@
-package s4.B183336; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
-import java.lang.*;
-import s4.specification.*;
+package s4.B183336; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 
 /*
-interface FrequencerInterface {     // This interface provides the design for frequency counter.
-    void setTarget(byte[]  target); // set the data to search.
-    void setSpace(byte[]  space);  // set the data to be searched target from.
-    int frequency(); //It return -1, when TARGET is not set or TARGET's length is zero
-                    //Otherwise, it return 0, when SPACE is not set or Space's length is zero
-                    //Otherwise, get the frequency of TAGET in SPACE
-    int subByteFrequency(int start, int end);
-    // get the frequency of subByte of taget, i.e target[start], taget[start+1], ... , target[end-1].
-    // For the incorrect value of START or END, the behavior is undefined.
-*/
 
+/*
+interface FrequencerInterface {     // このインタフェースは、周波数カウンタの設計を提供します。
+    void setTarget(byte[]  target); // サーチするデータをセットする。
+    void setSpace(byte[]  space);  // 検索対象のスペースをセットする。
+    int frequency(); //ターゲットがセットされていないか、ターゲットの長さが0の時、-1を返す。
+                    //スペースがセットされていない、スペースの長さが0の時、0を返す。
+                    //それ以外の時、frequencyを返す。
+    int subByteFrequency(int start, int end);
+    // ターゲットのサブバイトの頻度を取得する。i.e target[start], target[start+1], ... , target[end-1].
+    // STARTまたはENDの値が正しくない場合の動作は未定義です。
+}
+*/
 
 public class Frequencer implements FrequencerInterface{
     // Code to Test, *warning: This code  contains intentional problem*
@@ -36,7 +36,7 @@ public class Frequencer implements FrequencerInterface{
     }
 
     // I know that here is a potential problem in the declaration.
-    public int subByteFrequency(int start, int length) { 
+    public int subByteFrequency(int start, int length) {
 	// Not yet, but it is not currently used by anyone.
 	return -1;
     }
@@ -57,5 +57,5 @@ public class Frequencer implements FrequencerInterface{
 	    System.out.println("Exception occurred: STOP");
 	}
     }
-}	    
-	    
+}
+
