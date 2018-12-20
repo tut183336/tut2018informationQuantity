@@ -1,9 +1,11 @@
-package s4.B183336; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
+package s4; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
+import s4.specification.FrequencerInterface;
+import s4.specification.InformationEstimatorInterface;
 
 /*
 interface FrequencerInterface {     // このインタフェースは、周波数カウンタの設計を提供します。
-    void setTarget(byte[]  target); // サーチするデータをセットする。
-    void setSpace(byte[]  space);  // 検索対象のスペースをセットする。
+    void setTarget(byte[] target); // サーチするデータをセットする。
+    void setSpace(byte[] space);  // 検索対象のスペースをセットする。
     int frequency(); //ターゲットがセットされていないか、ターゲットの長さが0の時、-1を返す。
                     //スペースがセットされていない、スペースの長さが0の時、0を返す。
                     //それ以外の時、frequencyを返す。
@@ -30,52 +32,132 @@ public interface InformationEstimatorInterface{
 public class TestCase {
     public static void main(String[] args) {
 	try {
-	    FrequencerInterface  myObject;
+	    FrequencerInterface myObject;
 	    int freq;
 	    System.out.println("checking s4.B183336.Frequencer");
-	    myObject = new s4.B183336.Frequencer();
+	    myObject = new s4.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+    //ここから追加分
 
-	    //ここから追加分
-	    //ターゲットがセットされていないか、ターゲットの長さが0の時、-1を返す。
+    //ターゲットがセットされていないか、ターゲットの長さが0の時、-1を返す。
+	try {
+	    FrequencerInterface myObject;
+	    int freq;
+	    System.out.println("checking s4.B183336.Frequencer");
+	    myObject = new s4.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("".getBytes());
 	    freq = myObject.frequency();
 	    if(freq == -1) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-
-	    FrequencerInterface myObject2 = new s4.B183336.Frequencer();
-	    myObject2.setSpace("Hi Ho Hi Ho".getBytes());
-	    freq = myObject2.frequency();
-	    if(freq == -1) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-
-	    //スペースがセットされていない、スペースの長さが0の時、0を返す。
-	    myObject.setTarget("H".getBytes());
-	    myObject.setSpace("".getBytes());
-	    freq = myObject.frequency();
-	    if(freq == 0) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-	    FrequencerInterface myObject3 = new s4.B183336.Frequencer();
-	    myObject3.setTarget("H".getBytes());
-	    freq = myObject3.frequency();
-	    if(freq == 0) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-
-
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
+	try{
+	    FrequencerInterface myObject;
+	    int freq;
+	    System.out.println("checking s4.B183336.Frequencer");
+	    myObject = new s4.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == -1) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+
+	//スペースがセットされていない、スペースの長さが0の時、0を返す。
+	try{
+	    FrequencerInterface myObject = new s4.Frequencer();
+	    int freq;
+	    System.out.println("checking s4.B183336.Frequencer");
+		myObject.setTarget("H".getBytes());
+	    myObject.setSpace("".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 0) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+
+	try{
+	    FrequencerInterface myObject = new s4.Frequencer();
+	    int freq;
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 0) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	//12/18追加分
+
+	System.out.println("12/18追加分");
+
+    //28行目 for文の見る範囲は、ターゲットの長さを引いてあげる必要がある。例えば、ターゲットの長さが2の時、最後の1文字を見る必要はない。
+	//OutOfBoundsが起こる可能性がある。
+	try {
+	    FrequencerInterface myObject = new s4.Frequencer();
+	    int freq;
+	    System.out.println("checking s4.B183353.Frequencer");
+	    myObject.setSpace("AAAAAA".getBytes());
+	    myObject.setTarget("AA".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 5) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	    System.err.println(e);
+	}
+
+    //SpaceよりTarget配列の方が大きい場合
+	//outofbounds
+
+	try{
+	    FrequencerInterface myObject = new s4.Frequencer();
+	    int freq;
+	    System.out.println("checking s4.B183353.Frequencer");
+	    myObject.setSpace("ho".getBytes());
+	    myObject.setTarget("hogehoge".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 0){ System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+	}
+	catch(Exception e) {
+		System.out.println("Exception occurred: STOP");
+		System.err.println(e);
+	}
+
+	//
+
+
+
+
+
+
+	System.out.println("以上");
+
+
+
+
+
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
 	    System.out.println("checking s4.B183336.InformationEstimator");
-	    myObject = new s4.B183336.InformationEstimator();
+	    myObject = new s4.InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
@@ -92,8 +174,10 @@ public class TestCase {
 
 	    //ここから追加分
 
+
+
 	    //ターゲットがセットされていないなら、0.0を返す。
-	    InformationEstimatorInterface myObject2 = new s4.B183336.InformationEstimator();
+	    InformationEstimatorInterface myObject2 = new s4.InformationEstimator();
 	    myObject2.setSpace("3210321001230123".getBytes());
 	    value = myObject2.estimation();
 
@@ -106,7 +190,7 @@ public class TestCase {
 	    if(value == 0.0) { System.out.println("OK"); } else {System.out.println("WRONG");}
 
 	    // スペースが設定されていないときには、Double.MAX_VALUEを返す。
-	    InformationEstimatorInterface myObject3 = new s4.B183336.InformationEstimator();
+	    InformationEstimatorInterface myObject3 = new s4.InformationEstimator();
 	    myObject3.setTarget("0".getBytes());
 	    value = myObject3.estimation();
 
