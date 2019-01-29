@@ -1,4 +1,6 @@
 package s4; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
+import java.util.Arrays;
+
 import s4.specification.FrequencerInterface;
 /*
 
@@ -25,7 +27,7 @@ public class Frequencer implements FrequencerInterface{
     // Each suffix is expressed by a integer, which is the starting position in mySpace.
     // The following is the code to print the variable
 
-    private void printSuffixArray() {
+    public void printSuffixArray() {
     	if(spaceReady) {
             for(int i=0; i< mySpace.length; i++) {
                 int s = suffixArray[i];
@@ -44,28 +46,144 @@ public class Frequencer implements FrequencerInterface{
     	// if suffix_i = suffix_j, it returns 0;
     	// It is not implemented yet,
     	// It should be used to create suffix array.
-    	//System.out.println("#############################################");
-    	//System.out.println("i = "+i);
-    	//System.out.println("j = "+j);
+    	System.out.println("#############################################");
+    	System.out.println("i = "+i);
+    	System.out.println("j = "+j);
+
+    	//1/23更新 Stringでは無くて、byte型で実行できるようにする。
+
+
     	String mySpaceS = new String(mySpace);
+
 
 
     	//myspace長さ取得
     	int mySpaceSLength = mySpaceS.length();
-		//System.out.println("myspacelength"+mySpaceSLength);
+
+    	int mySpaceLength = mySpace.length;
+
+		//System.out.println("myspaceSlength"+mySpaceSLength);
+		//System.out.println("myspaceblength"+mySpaceLength);
 
     	//suffixのiと、jを作成。
     	String suffix_i = mySpaceS.substring(i);
     	String suffix_j = mySpaceS.substring(j);
 
+    	byte[] suffix_id = Arrays.copyOfRange(mySpace,i,mySpace.length+1);
+    	byte[] suffix_jd = Arrays.copyOfRange(mySpace,j,mySpace.length+1);
+
+    	//System.out.println("suffix_i = "+suffix_i);
+    	//System.out.println("suffix_j = "+suffix_j);
+
+    	//String test_i = new String(suffix_id);
+    	//String test_j = new String(suffix_jd);
+
+
+    	//System.out.println("suffix_id = "+test_i);
+    	//System.out.println("suffix_jd = "+test_j);
+
+
+    	//byte[] suffix_i = mySpace.
+
+
 
 
 
     	//suffixのiと、jの長さを作成。
-    	int suffix_i_length = suffix_i.length();
-    	int suffix_j_length = suffix_j.length();
+    	//int suffix_i_length = suffix_i.length();
+    	//int suffix_j_length = suffix_j.length();
+
+    	//byte
+    	int suffix_id_length = suffix_id.length-1;
+    	int suffix_jd_length = suffix_jd.length-1;
 
 
+
+
+
+    	//System.out.println("suffix_id_length = "+ suffix_id.length);
+    	//System.out.println("suffix_jd_length = "+ suffix_jd.length);
+
+
+
+    	//byte
+    	for(int k = 0;k < mySpaceLength;k++){
+    		System.out.println("k = "+k);
+
+    		byte targeti =0;
+    		byte targetj =0;
+
+    		boolean emptyi = true;
+    		boolean emptyj = true;
+
+    		if(k != suffix_id_length){
+    			targeti = suffix_id[k];
+
+    			char test = (char) targeti;//なんか他にやり方ありそう。
+    			//System.out.println("target i = "+targeti + " moji ="+ test);
+    		}else{
+    			//System.out.println("iがないよ。byte");
+    			emptyi = false;
+    		}
+
+    		if(k != suffix_jd_length){
+    			targetj = suffix_jd[k];
+
+    			char test = (char) targetj;//なんか他にやり方ありそう。
+    			//System.out.println("target j = "+targetj + " moji ="+ test);
+    			//System.out.println("test = "+test);
+    		}else{
+    			//System.out.println("jがないよ。byte");
+    			emptyj = false;
+    		}
+
+
+    		//どちらもない場合
+    		if(emptyi == false && emptyj==false){
+    			return 0;
+    		}
+    		//i true ver
+    		if(emptyi == true && emptyj==false){
+    			return 1;
+    		}
+    		//j true ver
+    		if(emptyi == false && emptyj ==true){
+    			return -1;
+    		}
+
+        	int judge = targeti-targetj;
+
+
+        	//compareToは、その文字の差を出すモノでaとcであれば2を返す。
+
+
+
+        	System.out.println("judge =" +judge );
+
+        	if(judge < 0){
+        		return -1;
+        	}else if(judge > 0){
+        		return 1;
+        	}
+
+        	/*
+    		char testa = 'a';
+    		char testc = 'c';
+
+    		byte btesta = (byte)testa;
+    		byte btestc = (byte)testc;
+
+    		System.out.println("btesta = "+ btesta);
+    		System.out.println("btestc = "+ btestc);
+
+    		int result = btesta - btestc;
+
+    		System.out.println("result = "+ result);
+    		*/
+    	}
+
+    	//string
+    	/*
     	for(int k = 0;k < mySpaceSLength;k++){
     		//System.out.println("k ="+k);
 
@@ -73,9 +191,11 @@ public class Frequencer implements FrequencerInterface{
     		String targeti = null;
     		String targetj = null;
 
+
     		//emptyチェック
     		boolean emptyi = true;
     		boolean emptyj = true;
+
 
 
     		if(k != suffix_i_length){
@@ -124,6 +244,7 @@ public class Frequencer implements FrequencerInterface{
         		return 1;
         	}
     	}
+    	*/
 
     	return 0;
 
@@ -201,21 +322,112 @@ public class Frequencer implements FrequencerInterface{
         // ****  Please write code here... ***
         //
 
-        String mySpaceS = new String(mySpace);  //byteからstringに変更
-        String myTargetS = new String(myTarget);
+        //String mySpaceS = new String(mySpace);  //byteからstringに変更
+        //String myTargetS = new String(myTarget);
 
+
+
+    	//System.out.println("*************************:targetCompare");
         //myspace長さ取得
-        int mySpaceSLength = mySpaceS.length();
+        //int mySpaceSLength = mySpaceS.length();
+    	//int mySpaceLength = mySpace.length;
+
 
         //suffixのiと、jを作成。
-        String suffix_i = mySpaceS.substring(suffixArray[i]);
-        String target_j = myTargetS.substring(j,end);
+        //String suffix_i = mySpaceS.substring(suffixArray[i]);
+        //String target_j = myTargetS.substring(j,end);
+
+    	byte[] suffix_id = Arrays.copyOfRange(mySpace,suffixArray[i],mySpace.length+1);
+    	byte[] target_jd = Arrays.copyOfRange(myTarget,j,end+1);
+
+
 
 
         //suffixのiと、jを作成
-        int suffix_i_length = suffix_i.length();
-        int target_length = target_j.length();
+        //int suffix_i_length = suffix_i.length();
+        //int target_length = target_j.length();
 
+        //byte
+    	int suffix_id_length = suffix_id.length-1;
+    	int target_d_length = target_jd.length-1;
+
+    	//System.out.println("suffix length = "+suffix_id_length);
+    	//System.out.println("target length = "+target_d_length);
+
+
+    	for(int k = 0;k < target_d_length;k++){
+    		//System.out.println("k = "+k);
+
+    		byte targeti =0;
+    		byte targetj =0;
+
+
+
+    		boolean emptyi = true;
+    		boolean emptyj = true;
+
+    		if(k != suffix_id_length){
+    			targeti = suffix_id[k];
+
+    			//char test = (char) targeti;//なんか他にやり方ありそう。
+    			//System.out.println("target i = "+targeti);
+    			//System.out.println("test = "+test);
+    		}else{
+    			targeti = 0;
+    			//System.out.println("iがないよ。byte");
+    			emptyi = false;
+    		}
+
+    		if(k != target_d_length){
+    			targetj = target_jd[k];
+
+    			//char test = (char) targetj;//なんか他にやり方ありそう。
+    			//System.out.println("target j = "+targetj);
+    			//System.out.println("test = "+test);
+    		}else{
+    			targetj = 0;
+    			//System.out.println("jがないよ。byte");
+    			emptyj = false;
+    		}
+
+    		char test = (char)targeti;
+    		//System.out.println("c = "+test);
+
+
+    		//どちらもない場合
+    		if(emptyi == false && emptyj==false){
+    			return 0;
+    		}
+    		//i true ver
+    		if(emptyi == true && emptyj==false){
+    			return 1;
+    		}
+    		//j true ver
+    		if(emptyi == false && emptyj ==true){
+    			return -1;
+    		}
+
+        	int judge = targeti-targetj;
+
+
+        	//compareToは、その文字の差を出すモノでaとcであれば2を返す。
+
+
+
+        	//System.out.println("judge =" +judge );
+
+        	if(judge < 0){
+        		return -1;
+        	}else if(judge > 0){
+        		return 1;
+        	}
+    	}
+
+
+
+
+
+        /*
         for(int k = 0;k < target_length;k++){
             //System.out.println("k ="+k);
             //iのチェック
@@ -272,6 +484,7 @@ public class Frequencer implements FrequencerInterface{
                 return 1;
             }
         }
+        */
 
         return 0;
 
@@ -325,11 +538,12 @@ public class Frequencer implements FrequencerInterface{
 
         for( int k=0 ; k < mySpace.length ; k++ ){
             if( targetCompare(k,start,end) == 0 ){ //最初に一致したところがstartIndex
-                System.out.println("start k =" + k);
+                //System.out.println("start k =" + k);
                 return k;
             }
         }
 
+        System.out.println("dame");
         return -1; //
 
 
@@ -347,8 +561,8 @@ public class Frequencer implements FrequencerInterface{
         // ****  Please write code here... ***
         //
         for( int k=0 ; k < mySpace.length ; k++ ){
-            if( targetCompare(k,start,end) == 1 ){ //最初に一致したところがstartIndex
-                System.out.println("end k =" + k);
+            if( targetCompare(k,start,end) == 1 ){ //最初に一致しなくなったところがendIndex
+                //System.out.println("end k =" + k);
                 return k;
             }
         }
@@ -369,9 +583,6 @@ public class Frequencer implements FrequencerInterface{
             if(abort == false) { count++; }
         }
         */
-
-
-
         int first = subByteStartIndex(start, end);
         int last1 = subByteEndIndex(start, end);
         return last1 - first;
@@ -385,7 +596,7 @@ public class Frequencer implements FrequencerInterface{
         if(targetReady == false) return -1;
         if(spaceReady == false) return 0;
 
-
+        //System.out.println(myTarget.length);
         return subByteFrequency(0, myTarget.length);
     }
 
@@ -393,7 +604,7 @@ public class Frequencer implements FrequencerInterface{
         Frequencer frequencerObject;
         try {
             frequencerObject = new Frequencer();
-            frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
+            frequencerObject.setSpace("3210321001230123".getBytes());
             frequencerObject.printSuffixArray();// you may use this line for DEBUG
 //
             /* Example from "Hi Ho Hi Ho"
@@ -410,7 +621,7 @@ public class Frequencer implements FrequencerInterface{
                A:o Hi Ho
             */
 
-            frequencerObject.setTarget("i".getBytes());
+            frequencerObject.setTarget("0".getBytes());
             //
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
             //
@@ -420,6 +631,9 @@ public class Frequencer implements FrequencerInterface{
             //}else{
             //	System.out.println("WRONG");
             //}
+
+
+
         //}
         } catch(Exception e) {
             System.out.println("STOP");
