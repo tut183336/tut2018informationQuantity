@@ -270,6 +270,7 @@ public class Frequencer implements FrequencerInterface{
     }
     public void setSpace(byte []space) {
     	mySpace = space;
+
     	if(mySpace.length>0) {
     		spaceReady = true;
     	}
@@ -279,6 +280,9 @@ public class Frequencer implements FrequencerInterface{
     	for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
     	}
+
+    	//バブルソート
+    	/*
 
         for (int i = suffixArray.length-1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
@@ -292,12 +296,62 @@ public class Frequencer implements FrequencerInterface{
                 }
             }
         }
+        */
+
+    	//マージソート
+    	this.sort(suffixArray,0, suffixArray.length-1);
+    	printSuffixArray();
+
+
 
         // Sorting is not implmented yet.
     	//
     	//
     	//
     }
+
+    public void sort(int[] array,int low,int high){
+    	if(low < high){
+    		int middle = (low + high) >>> 1;
+    		this.sort(array, low, middle);
+    		this.sort(array, middle+1, high);
+    		this.merge(array, low, middle,high);
+    	}
+    }
+
+    public void merge(int [] array,int low,int middle, int high){
+    	int[] temp = new int[array.length];
+
+    	for(int i = low; i <= high; i++){
+    		temp[i] = array[i];
+    	}
+    	int tempLeft = low;
+    	int tempRight = middle + 1;
+    	int current = low;
+
+    	while(tempLeft <= middle && tempRight <= high){
+    		if(suffixCompare(temp[tempLeft],temp[tempRight]) == -1){
+    			array[current] = temp[tempLeft];
+    			tempLeft++;
+    		}else{
+    			array[current] = temp[tempRight];
+    			tempRight++;
+    		}
+    		current ++;
+    	}
+    	int remaining = middle - tempLeft;
+    	for(int i = 0; i <= remaining; i++){
+    		array[current + i] = temp[tempLeft+i];
+    	}
+
+
+    }
+
+
+
+
+
+
     private int targetCompare(int i, int j, int end) {
         // comparing suffix_i and target_j_end by dictonary order with limitation of length;
         // if the beginning of suffix_i matches target_i_end, and suffix is longer than target it returns 0;
@@ -616,7 +670,6 @@ public class Frequencer implements FrequencerInterface{
 
     public static void main(String[] args) {
         Frequencer frequencerObject;
-        try {
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("AAA".getBytes());
 
@@ -650,9 +703,9 @@ public class Frequencer implements FrequencerInterface{
 
 
         //}
-        } catch(Exception e) {
-            System.out.println("STOP");
-            System.err.println(e);
-        }
+
+            //System.out.println("STOP");
+            //System.err.println(e);
+        //}
     }
 }
