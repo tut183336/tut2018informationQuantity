@@ -48,10 +48,10 @@ public class Frequencer implements FrequencerInterface{
 	    System.out.println("checking my Frequencer");
 	    myObject = new Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
+	    myObject.setTarget("Hoo".getBytes()); //文字列を検索文字に設定すると参照エラーが起きる
 	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	    System.out.print("\"Hoo\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");

@@ -30,7 +30,7 @@ public class Frequencer implements FrequencerInterface{
     public int subByteFrequency(int start, int end) {
 	int spaceLength = mySpace.length;
 	int count = 0;
-	for(int offset = 0; offset< spaceLength - (end - start); offset++) {
+	for(int offset = 0; offset<= spaceLength - (end - start); offset++) {
 	    boolean abort = false;
 	    for(int i = 0; i< (end - start); i++) {
 		if(myTarget[start+i] != mySpace[offset+i]) { abort = true; break; }

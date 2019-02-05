@@ -1,4 +1,4 @@
-package s4.B183376; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183376; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -12,6 +12,9 @@ interface FrequencerInterface {     // This interface provides the design for fr
     int subByteFrequency(int start, int end);
     // get the frequency of subByte of taget, i.e target[start], taget[start+1], ... , target[end-1].
     // For the incorrect value of START or END, the behavior is undefined.
+    // <Frequencerの問題点>
+    //・Targetの長さがSpaceの長さより長い場合プログラム的に問題がある。
+    //・Targetの長さが二文字以上の場合プログラム的に問題がある。
 }
 */
 
@@ -24,9 +27,10 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
+
 
 
 public class TestCase {
@@ -46,29 +50,126 @@ public class TestCase {
 	    System.out.println("Exception occurred: STOP");
 	}
 
-	try {
-	    InformationEstimatorInterface myObject;
-	    double value;
-	    System.out.println("checking s4.B183376.InformationEstimator");
-	    myObject = new s4.B183376.InformationEstimator();
-	    myObject.setSpace("3210321001230123".getBytes());
-	    myObject.setTarget("0".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">0 "+value);
-	    myObject.setTarget("01".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">01 "+value);
-	    myObject.setTarget("0123".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">0123 "+value);
-	    myObject.setTarget("00".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">00 "+value);
+  try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B183376.Frequencer");
+	    myObject = new s4.B183376.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print("\"NO Target\"\"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
+  try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B183376.Frequencer");
+	    myObject = new s4.B183376.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print("\"H\" in \"\" appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183376.Frequencer");
+      myObject = new s4.B183376.Frequencer();
+      myObject.setSpace("AAAA".getBytes());
+      myObject.setTarget("AAAAAA".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"AAAAA\" in \"AA\" appears "+freq+" times. ");
+      if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+  }
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183376.Frequencer");
+      myObject = new s4.B183376.Frequencer();
+      myObject.setSpace("1234123".getBytes());
+      myObject.setTarget("123".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"1234123\" in \"123\" appears "+freq+" times. ");
+      if(2 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+  }
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183376.Frequencer");
+      myObject = new s4.B183376.Frequencer();
+      myObject.setSpace("AAAA".getBytes());
+      myObject.setTarget("AA".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"AA\" in \"AAAA\" appears "+freq+" times. ");
+      if(2 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+  }
+
+	try {
+	    InformationEstimatorInterface myObject;
+	    double value;
+	    System.out.println("checking s4.B183376.InformationEstimator");
+	    myObject = new s4.B183376.InformationEstimator();
+
+	    myObject.setSpace("3210321001230123".getBytes());
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+      System.out.println(">00 "+value);
+
+      myObject.setTarget("".getBytes());
+      value = myObject.estimation();
+      System.out.println(">NO Target "+value);
+      if(0.0==value){System.out.println("OK");}
+      else{System.out.println("WRONG");}
+
+      myObject.setSpace("".getBytes());
+      myObject.setTarget("H".getBytes());
+      value = myObject.estimation();
+      System.out.println(">NO Space "+value);
+      if(Double.MAX_VALUE==value){System.out.println("OK");}
+      else{System.out.println("WRONG");}
+
+      myObject.setSpace("".getBytes());
+      myObject.setTarget("".getBytes());
+      value = myObject.estimation();
+      System.out.println(">NO Space NO Target "+value);
+      if(Double.MAX_VALUE==value){System.out.println("OK");}
+      else{System.out.println("WRONG");}
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
     }
-}	    
-	    
+}

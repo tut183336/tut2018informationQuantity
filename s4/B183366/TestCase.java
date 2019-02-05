@@ -33,8 +33,38 @@ public class TestCase {
     public static void main(String[] args) {
 	try {
 	    FrequencerInterface  myObject;
-	    int freq;
-	    System.out.println("checking s4.B183366.Frequencer");
+		int freq;
+		System.out.println("---Black box test---");
+		System.out.println("checking s4.B183366.Frequencer");
+		
+		//It returns -1 when TARGET is not set or TARGET's length is zero.
+		System.out.println("TARGET is not set");
+		myObject = new s4.B183366.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		freq = myObject.frequency();
+		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+		
+		System.out.println("TARGET's length is zero");
+		myObject = new s4.B183366.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+		//It returns 0 when SPACE is not set or SPACE's length is zero.
+		System.out.println("SPACE is not set");
+		myObject = new s4.B183366.Frequencer();
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+		if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+		
+		System.out.println("SPACE's length is zero");
+		myObject = new s4.B183366.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+		if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+		
 	    myObject = new s4.B183366.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
@@ -46,13 +76,64 @@ public class TestCase {
 	    System.out.println("Exception occurred: STOP");
 	}
 
+	System.out.println("---White box test---");
+	System.out.println("checking s4.B183366.Frequencer");
+	try{
+		FrequencerInterface myObject;
+		int freq;
+
+		myObject = new s4.B183366.Frequencer();
+		myObject.setSpace("0000".getBytes());
+		myObject.setTarget("00".getBytes());
+		freq = myObject.frequency();
+		System.out.print("\"00\" in \"0000 \" appears "+freq+" times. ");
+		if(2 == freq) { 
+			System.out.println("OK"); 
+		} else {
+			System.out.println("WRONG"); 
+		}
+		//文字が重複してカウントされていることが確認できる。
+	}
+	catch(Exception e) {
+
+		System.out.println("Exception occurred: STOP");
+
+	}
+	System.out.println("---Black box test---");
 	try {
 	    InformationEstimatorInterface myObject;
-	    double value;
-	    System.out.println("checking s4.B183366.InformationEstimator");
+		double value;
+		System.out.println("checking s4.B183366.InformationEstimator");
+
+		System.out.println("TARGET is not set");
 	    myObject = new s4.B183366.InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
-	    myObject.setTarget("0".getBytes());
+		value = myObject.estimation();
+		if(0.0==value){System.out.println("OK");}else{System.out.println("WRONG");}
+
+		System.out.println("TARGET's length is zero");
+	    myObject = new s4.B183366.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+		myObject.setTarget("".getBytes());
+		value = myObject.estimation();
+		if(0.0==value){System.out.println("OK");}else{System.out.println("WRONG");}
+
+		System.out.println("SPACE is not set");
+	    myObject = new s4.B183366.InformationEstimator();
+		myObject.setTarget("0".getBytes());
+		value = myObject.estimation();
+		if(Double.MAX_VALUE==value){System.out.println("OK");}else{System.out.println("WRONG");}
+
+		System.out.println("SPACE's length is zero");
+	    myObject = new s4.B183366.InformationEstimator();
+	    myObject.setSpace("".getBytes());
+		myObject.setTarget("0".getBytes());
+		value = myObject.estimation();
+		if(Double.MAX_VALUE==value){System.out.println("OK");}else{System.out.println("WRONG");}
+
+	    myObject = new s4.B183366.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+		myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">0 "+value);
 	    myObject.setTarget("01".getBytes());

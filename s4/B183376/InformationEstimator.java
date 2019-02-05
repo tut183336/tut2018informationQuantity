@@ -1,4 +1,4 @@
-package s4.B183376; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183376; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -11,8 +11,8 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 public class InformationEstimator implements InformationEstimatorInterface{
@@ -26,18 +26,18 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	// It is not implement in class library because internal structure of byte[] requires copy.
 	byte [] result = new byte[end - start];
 	for(int i = 0; i<end - start; i++) { result[i] = x[start + i]; };
-	return result;
+	 return result;
     }
 
     // IQ: information quantity for a count,  -log2(count/sizeof(space))
-    double iq(int freq) {
-	return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
+    double iq(int freq) {//ビデオ中のf
+	     return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
     }
 
     public void setTarget(byte [] target) { myTarget = target;}
-    public void setSpace(byte []space) { 
-	myFrequencer = new Frequencer();
-	mySpace = space; myFrequencer.setSpace(space); 
+    public void setSpace(byte []space) {
+	     myFrequencer = new Frequencer();
+	     mySpace = space; myFrequencer.setSpace(space);
     }
 
     public double estimation(){
@@ -54,19 +54,19 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    // T F T F F T F T : partition:
 	    partition[0] = true; // I know that this is not needed, but..
 	    for(int i=0; i<myTarget.length -1;i++) {
-		partition[i+1] = (0 !=((1<<i) & p));
+		      partition[i+1] = (0 !=((1<<i) & p));
 	    }
 	    partition[myTarget.length] = true;
 
 	    // Compute Information Quantity for the partition, in "value1"
 	    // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
             double value1 = (double) 0.0;
-	    int end = 0;;
+	    int end = 0;
 	    int start = end;
 	    while(start<myTarget.length) {
 		// System.out.write(myTarget[end]);
-		end++;;
-		while(partition[end] == false) { 
+		end++;
+		while(partition[end] == false) {
 		    // System.out.write(myTarget[end]);
 		    end++;
 		}
@@ -83,27 +83,26 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	return value;
     }
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 	InformationEstimator myObject;
 	double value;
 	myObject = new InformationEstimator();
 	myObject.setSpace("3210321001230123".getBytes());
-	myObject.setTarget("0".getBytes());
+
+  myObject.setTarget("0".getBytes());
 	value = myObject.estimation();
 	System.out.println(">0 "+value);
+
 	myObject.setTarget("01".getBytes());
 	value = myObject.estimation();
 	System.out.println(">01 "+value);
+
 	myObject.setTarget("0123".getBytes());
 	value = myObject.estimation();
 	System.out.println(">0123 "+value);
+
 	myObject.setTarget("00".getBytes());
 	value = myObject.estimation();
 	System.out.println(">00 "+value);
-    }
+  }
 }
-				  
-			       
-
-	
-    

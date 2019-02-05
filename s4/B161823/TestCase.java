@@ -1,4 +1,4 @@
-package s4.B161823; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B161823; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -24,12 +24,12 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 
-public class TestCase {
+public class TestCase{
     public static void main(String[] args) {
 	try {
 	    FrequencerInterface  myObject;
@@ -40,7 +40,28 @@ public class TestCase {
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+        int freq2;
+        freq2 = myObject.subByteFrequency( 0, 1);
+        System.out.print("\"H\" in \"H\" appears "+ freq2 + " times. ");
+        if(1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+        FrequencerInterface new1Object = new s4.B161823.Frequencer();
+        new1Object.setSpace("Hi Ho Hi Ho".getBytes());
+        new1Object.setTarget("".getBytes());
+        int freq3 = new1Object.frequency();
+        System.out.print("When you don't set target and do int freq3 = newObject.frequency() it returns "+freq3+".");
+        if(-1 == freq3) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+        FrequencerInterface new2Object = new s4.B161823.Frequencer();
+        new2Object.setSpace("".getBytes());
+        new2Object.setTarget("H".getBytes());
+        int freq4 = new2Object.frequency();
+        System.out.print("When you don't set SPCE, it return"+freq4+".");
+        if(0 == freq4) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
@@ -64,11 +85,32 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
+
+	    InformationEstimatorInterface TestOb1 = new s4.B161823.InformationEstimator();
+	    TestOb1.setSpace("3210321001230123".getBytes());
+        TestOb1.setTarget("".getBytes());
+        value = TestOb1.estimation();
+	    System.out.print("No Target> "+value);
+        if(0.0 == value) { System.out.println(" OK"); } else {System.out.println(" WRONG"); }
+
+        InformationEstimatorInterface TestOb2 = new s4.B161823.InformationEstimator();
+	    TestOb2.setSpace("".getBytes());
+        TestOb2.setTarget("01".getBytes());
+        value = TestOb2.estimation();
+	    System.out.print("No Space>01 "+value);
+        if(Double.MAX_VALUE == value) { System.out.println(" OK"); } else {System.out.println(" WRONG"); }
+
+        InformationEstimatorInterface TestOb3 = new s4.B161823.InformationEstimator();
+	    TestOb3.setSpace("98998180374087090505060981048971897483798560195981603080574980079834789589278389759798708937489980010270398".getBytes());
+        TestOb3.setTarget("01".getBytes());
+        value = TestOb3.estimation();
+	    System.out.print("Space unreasonably large>01 "+value);
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
     }
-}	    
-	    
+}
+

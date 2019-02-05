@@ -31,10 +31,71 @@ public interface InformationEstimatorInterface{
 
 public class TestCase {
     public static void main(String[] args) {
+	//case1:TARGETの長さがゼロの場合は-1を返します。
+	try {
+		 FrequencerInterface  myObject;
+	    int freq;
+	    System.out.print("case1:");
+	    myObject = new Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(-1 == freq) { System.out.println("-1"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	//case2:TARGETが設定されていない場合は-1を返します。
+	try {
+		 FrequencerInterface  myObject;
+	    int freq;
+	    System.out.print("case2:");
+	    myObject = new Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    //myObject.setTarget();
+	    freq = myObject.frequency();
+	    if(-1 == freq) { System.out.println("0"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+
+	//case3:SPACEが設定されていない場合は0を返します。
+	try {
+		 FrequencerInterface  myObject;
+	    int freq;
+	    System.out.print("case3:");
+	    myObject = new Frequencer();
+	//    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(0 == freq) { System.out.println("0"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	//case4:スペースの長さがゼロの場合は0を返します。
+	try {
+		 FrequencerInterface  myObject;
+	    int freq;
+	    System.out.print("case4:");
+	    myObject = new Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(0 == freq) { System.out.println("0"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	//case5:SPACEのTARGETの頻度を取得します。	
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("checking s4.B183330.Frequencer");
+	    System.out.print("case5:");
 	    myObject = new s4.B183330.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
@@ -45,6 +106,68 @@ public class TestCase {
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
+
+	//case6:ターゲットの長さがゼロの場合は0.0を返します。
+	try {
+	    InformationEstimator  myObject;
+	    Double info;
+	    System.out.print("case6:");
+	    myObject = new s4.B183330.InformationEstimator();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("".getBytes());
+	    info = myObject.estimation();
+	    if(0.0 == info) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	
+	//case7:ターゲットが設定されていない場合は0.0を返します。
+	try {
+	    InformationEstimator  myObject;
+	    Double info;
+	    System.out.print("case7:");
+	    myObject = new s4.B183330.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+	  //  myObject.setTarget("".getBytes());
+	    info = myObject.estimation();
+	    if(0.0 == info) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+
+	//case8:true値が無限大の場合,Double.MAX_VALUEを返します。
+	try {
+	    InformationEstimator  myObject;
+	    Double info;
+	    System.out.print("case8:");
+	    myObject = new s4.B183330.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+	    myObject.setTarget("9".getBytes());
+	    info = myObject.estimation();
+	    if(Double.MAX_VALUE == info) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	//case9:Spaceが設定されていない場合は,Double.MAX_VALUEを返します。
+	try {
+	    InformationEstimator  myObject;
+	    Double info;
+	    System.out.print("case7:");
+	    myObject = new s4.B183330.InformationEstimator();
+	  //  myObject.setSpace("3210321001230123".getBytes());
+	    myObject.setTarget("9".getBytes());
+	    info = myObject.estimation();
+	    if(Double.MAX_VALUE == info) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
 
 	try {
 	    InformationEstimatorInterface myObject;

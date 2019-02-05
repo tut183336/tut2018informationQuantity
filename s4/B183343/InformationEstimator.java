@@ -1,5 +1,6 @@
-package s4.B183343; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183343; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
+import java.util.Arrays;
 import s4.specification.*;
 
 /* What is imported from s4.specification
@@ -11,8 +12,8 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 public class InformationEstimator implements InformationEstimatorInterface{
@@ -35,14 +36,23 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public void setTarget(byte [] target) { myTarget = target;}
-    public void setSpace(byte []space) { 
+    public void setSpace(byte []space) {
 	myFrequencer = new Frequencer();
-	mySpace = space; myFrequencer.setSpace(space); 
+	mySpace = space; myFrequencer.setSpace(space);
     }
 
     public double estimation(){
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
+
+double[][] nparray = new double[myTarget.length+1][myTarget.length];
+
+for(int a = 0; a < myTarget.length+1; a++){
+  for(int b = 0;b < myTarget.length ; b++){
+    nparray[a][b] = -1.0;
+  }
+}
+
 	np = 1<<(myTarget.length-1);
 	// System.out.println("np="+np+" length="+myTarget.length);
 	double value = Double.MAX_VALUE; // value = mininimum of each "value1".
@@ -54,7 +64,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    // T F T F F T F T : partition:
 	    partition[0] = true; // I know that this is not needed, but..
 	    for(int i=0; i<myTarget.length -1;i++) {
-		partition[i+1] = (0 !=((1<<i) & p));
+		      partition[i+1] = (0 !=((1<<i) & p));
 	    }
 	    partition[myTarget.length] = true;
 
@@ -66,15 +76,23 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    while(start<myTarget.length) {
 		// System.out.write(myTarget[end]);
 		end++;;
-		while(partition[end] == false) { 
+		while(partition[end] == false) {
 		    // System.out.write(myTarget[end]);
 		    end++;
 		}
 		// System.out.print("("+start+","+end+")");
 		myFrequencer.setTarget(subBytes(myTarget, start, end));
-		value1 = value1 + iq(myFrequencer.frequency());
-		start = end;
-	    }
+    // System.out.println(Arrays.deepToString(nparray));
+    // System.out.println(p);
+    // System.out.println(end);
+    if(nparray[end][start] == -1.0){
+      nparray[end][start] = iq(myFrequencer.frequency());
+    }
+
+		value1 = value1 + nparray[end][start];
+    start = end;
+
+      }
 	    // System.out.println(" "+ value1);
 
 	    // Get the minimal value in "value"
@@ -88,22 +106,35 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	double value;
 	myObject = new InformationEstimator();
 	myObject.setSpace("3210321001230123".getBytes());
+
 	myObject.setTarget("0".getBytes());
 	value = myObject.estimation();
 	System.out.println(">0 "+value);
-	myObject.setTarget("01".getBytes());
+
+  myObject.setTarget("01".getBytes());
 	value = myObject.estimation();
 	System.out.println(">01 "+value);
-	myObject.setTarget("0123".getBytes());
+
+  myObject.setTarget("0123".getBytes());
 	value = myObject.estimation();
 	System.out.println(">0123 "+value);
+
+  myObject.setTarget("230".getBytes());
+  value = myObject.estimation();
+  System.out.println(">230 "+value);
+
+  myObject.setTarget("321".getBytes());
+	value = myObject.estimation();
+	System.out.println(">321 "+value);
+
+  myObject.setTarget("01230".getBytes());
+	value = myObject.estimation();
+	System.out.println(">01230 "+value);
+
 	myObject.setTarget("00".getBytes());
 	value = myObject.estimation();
 	System.out.println(">00 "+value);
+
+
     }
 }
-				  
-			       
-
-	
-    

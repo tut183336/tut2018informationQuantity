@@ -15,6 +15,7 @@ public interface InformationEstimatorInterface{
 }                        
 */
 
+
 public class InformationEstimator implements InformationEstimatorInterface{
     // Code to tet, *warning: This code condtains intentional problem*
     byte [] myTarget; // data to compute its information quantity
@@ -40,6 +41,38 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	mySpace = space; myFrequencer.setSpace(space); 
     }
 
+    public double estimation()
+    {
+	double[] iqsave = new double[myTarget.length];
+	double value;
+	double tmp;
+
+	for(int i = 0; i < myTarget.length; i++)
+	    {
+		value = 0.0;
+		for(int j = 0; j <= i; j++)
+		    {
+			myFrequencer.setTarget(subBytes(myTarget, j, i+1));
+			if(j == 0)
+			    {
+				value = iq(myFrequencer.frequency());
+			    }
+			else
+			    {
+				tmp = iqsave[j-1] + iq(myFrequencer.frequency());
+				if(value > tmp)
+				    {
+					value = tmp;
+				    }
+			    }
+		    }
+		iqsave[i] = value;
+	    }
+
+	return iqsave[myTarget.length-1];
+    }
+
+    /*
     public double estimation(){
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
@@ -73,16 +106,17 @@ public class InformationEstimator implements InformationEstimatorInterface{
 		// System.out.print("("+start+","+end+")");
 		myFrequencer.setTarget(subBytes(myTarget, start, end));
 		value1 = value1 + iq(myFrequencer.frequency());
+		//System.out.println(myFrequencer.frequency());
 		start = end;
 	    }
 	    // System.out.println(" "+ value1);
 
 	    // Get the minimal value in "value"
 	    if(value1 < value) value = value1;
-	}
+	    }
 	return value;
     }
-
+*/
     public static void main(String[] args) {
 	InformationEstimator myObject;
 	double value;

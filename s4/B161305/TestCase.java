@@ -69,6 +69,21 @@ public class TestCase {
 	    System.out.println("Exception occurred: STOP");
 	}
 
+//作成部分
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B161305.Frequencer");
+	    myObject = new s4.B161305.Frequencer();
+	    myObject.setSpace("Yabashi dayo".getBytes());
+	    myObject.setTarget("a".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print("\"a\" in \"Yabashi dayo\" appears "+freq+" times. ");
+	    if(3 == freq) { System.out.println("OK"); } else 	{System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
     }
 }	    
 	    

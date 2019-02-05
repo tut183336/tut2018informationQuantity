@@ -28,7 +28,6 @@ public interface InformationEstimatorInterface{
 }                        
 */
 
-
 public class TestCase {
     public static void main(String[] args) {
 	try {
@@ -47,11 +46,78 @@ public class TestCase {
 	}
 
 	try {
+		/* Target宣言なしの場合 */
+	    FrequencerInterface  myObject;
+		int freq;
+		System.out.println("(No Target)");
+		System.out.println("checking s4.B183356.Frequencer");
+	    myObject = new s4.B183356.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		freq = myObject.frequency();
+	    System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println(freq+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Targetが""の場合 */
+	    FrequencerInterface  myObject;
+		int freq;
+		System.out.println("(Target length 0)");
+	    System.out.println("checking s4.B183356.Frequencer");
+	    myObject = new s4.B183356.Frequencer();
+		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		myObject.setTarget("".getBytes());
+		freq = myObject.frequency();
+	    System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println(freq+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Space宣言なしの場合 */
+	    FrequencerInterface  myObject;
+		int freq;
+		System.out.println("(No Space)");
+		System.out.println("checking s4.B183356.Frequencer");
+	    myObject = new s4.B183356.Frequencer();
+	    myObject.setTarget("H".getBytes());
+		freq = myObject.frequency();
+	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println(freq+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Spaceが""の場合 */
+	    FrequencerInterface  myObject;
+		int freq;
+		System.out.println("(Space length 0)");
+	    System.out.println("checking s4.B183356.Frequencer");
+	    myObject = new s4.B183356.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("H".getBytes());
+		freq = myObject.frequency();
+	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println(freq+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println();
+
+	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
 	    System.out.println("checking s4.B183356.InformationEstimator");
-	    myObject = new s4.B183356.InformationEstimator();
-	    myObject.setSpace("3210321001230123".getBytes());
+		myObject = new s4.B183356.InformationEstimator();
+		myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">0 "+value);
@@ -63,12 +129,115 @@ public class TestCase {
 	    System.out.println(">0123 "+value);
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">00 "+value);
+		System.out.println(">00 "+value);
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
-    }
-}	    
-	    
+	try {
+		/* Target宣言なしの場合 */
+	    InformationEstimatorInterface myObject;
+		double value;
+		System.out.println("(No Target)");
+	    System.out.println("checking s4.B183356.InformationEstimator");
+		myObject = new s4.B183356.InformationEstimator();
+		myObject.setSpace("3210321001230123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+		System.out.println(">00 "+value);
+		if(0.0 == value) { System.out.println("OK"); } else {System.out.println(value+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Targetが""の場合 */
+	    InformationEstimatorInterface myObject;
+		double value;
+		System.out.println("(Target length 0)");
+	    System.out.println("checking s4.B183356.InformationEstimator");
+		myObject = new s4.B183356.InformationEstimator();
+		myObject.setSpace("3210321001230123".getBytes());
+		myObject.setTarget("".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+		System.out.println(">00 "+value);
+		if(0.0 == value) { System.out.println("OK"); } else {System.out.println(value+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Space宣言なしの場合 */
+	    InformationEstimatorInterface myObject;
+		double value;
+		System.out.println("(No Space)");
+	    System.out.println("checking s4.B183356.InformationEstimator");
+		myObject = new s4.B183356.InformationEstimator();
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+		System.out.println(">00 "+value);
+		if(Double.MAX_VALUE == value) { System.out.println("OK"); } else {System.out.println(value+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+	try {
+		/* Spaceが""の場合 */
+	    InformationEstimatorInterface myObject;
+		double value;
+		System.out.println("(Space length 0)");
+	    System.out.println("checking s4.B183356.InformationEstimator");
+		myObject = new s4.B183356.InformationEstimator();
+		myObject.setSpace("".getBytes());
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+		System.out.println(">00 "+value);
+		if(Double.MAX_VALUE == value) { System.out.println("OK"); } else {System.out.println(value+"WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+
+
+
+	}
+}

@@ -33,19 +33,50 @@ public class TestCase {
     public static void main(String[] args) {
 	try {
 	    FrequencerInterface  myObject;
-	    int freq;
-	    System.out.println("checking s4.B183374.Frequencer");
+		int freq;
+		//byte[] test = null;
+		System.out.println("checking s4.B183374.Frequencer");
+		myObject = new s4.B183374.Frequencer();
+		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		myObject.setTarget("H".getBytes());
+		freq = myObject.frequency();
+		System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears " + freq + " times. ");
+		if (4 == freq) {
+			System.out.println("OK");
+		} else {
+			System.out.println("WRONG");
+		}
+		
 	    myObject = new s4.B183374.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setSpace("".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+		if (4 == freq) {
+			System.out.println("OK");
+		} else {
+			System.out.println("WRONG");
+		}
+		/*
+		myObject.setTarget();
+		freq = myObject.frequency();
+		System.out.print(freq);
+		*/
+		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		myObject.setTarget("".getBytes());
+		freq = myObject.frequency();
+		System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears " + freq + " times. ");
+		if (4 == freq) {
+			System.out.println("OK");
+		} else {
+			System.out.println("WRONG");
+		}	
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
+	/*
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
@@ -68,7 +99,7 @@ public class TestCase {
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
+	*/
     }
 }	    
 	    

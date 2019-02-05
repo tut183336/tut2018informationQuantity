@@ -41,9 +41,73 @@ public class TestCase {
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
-	catch(Exception e) {
+	}catch(Exception e){
 	    System.out.println("Exception occurred: STOP");
+	}
+
+	try{
+	    //TARGET is not set
+	    FrequencerInterface myObject;
+	    int freq;
+	    String isOK;
+	    myObject = new s4.B183319.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == -1)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("TARGET is not set: "+isOK+"("+freq+")");
+	}catch(Exception e){
+	    System.out.println("TARGET is not set: ");
+	    e.printStackTrace();
+	}
+
+	try{
+	    //TARGET's length is zero
+	    FrequencerInterface myObject;
+	    int freq;
+	    String isOK;
+	    myObject = new s4.B183319.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == -1)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("TARGET's length is zero: "+isOK+"("+freq+")");
+	}catch(Exception e){
+	    System.out.println("TARGET's length is zero: ");
+	    e.printStackTrace();
+	}
+
+	try{
+	    //SPACE is not set
+	    FrequencerInterface myObject;
+	    int freq;
+	    String isOK;
+	    myObject = new s4.B183319.Frequencer();
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 0)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("SPACE is not set: "+isOK+"("+freq+")");
+	}catch(Exception e){
+	    System.out.println("SPACE is not set: "+e);
+	}
+
+	try{
+	    //SPACE's length is zero
+	    FrequencerInterface myObject;
+	    int freq;
+	    String isOK;
+	    myObject = new s4.B183319.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    if(freq == 0)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("SPACE's length is zero: "+isOK+"("+freq+")");
+	}catch(Exception e) {
+	    System.out.println("SPACE's length is zero: ");
+	    e.printStackTrace();
 	}
 
 	try {
@@ -64,11 +128,76 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
+	}catch(Exception e){
+	    System.out.println("Exception occurred: STOP");
+	}
+	
+	try{
+	    //TARGET is not set
+	    InformationEstimatorInterface myObject;
+	    double value;
+	    String isOK;
+	    myObject = new s4.B183319.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+	    value = myObject.estimation();
+	    if(value == 0.0)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("TARGET is not set: "+isOK+"("+value+")");
+	}catch(Exception e){
+	    System.out.println("TARGET is not set: ");
+	    e.printStackTrace();
+	}
+
+	try{
+	    //TARGET's length is zero
+	    InformationEstimatorInterface myObject;
+	    double value;
+	    String isOK;
+	    myObject = new s4.B183319.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+	    myObject.setTarget("".getBytes());
+	    value = myObject.estimation();
+	    if(value == 0.0)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("TARGET's length is zero: "+isOK+"("+value+")");
+	}catch(Exception e){
+	    System.out.println("TARGET's length is zero: ");
+	    e.printStackTrace();
+	}
+
+	try{
+	    //true value is infinite
+	    InformationEstimatorInterface myObject;
+	    double value;
+	    String isOK;
+	    myObject = new s4.B183319.InformationEstimator();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    if(value == Double.MAX_VALUE)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("true value is infinite: "+isOK+"("+value+")");
+	}catch(Exception e){
+	    System.out.println("true value is infinite: ");
+	    e.printStackTrace();
+	}
+	
+	try{
+	    //SPACE is not set
+	    InformationEstimatorInterface myObject;
+	    double value;
+	    String isOK;
+	    myObject = new s4.B183319.InformationEstimator();
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    if(value == Double.MAX_VALUE)isOK = "OK";
+	    else isOK = "NG";
+	    System.out.println("SPACE is not set: "+isOK+"("+value+")");
 	}
 	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
+	    System.out.println("SPACE is not set: ");
+	    e.printStackTrace();
 	}
 
     }
-}	    
-	    
+}

@@ -1,4 +1,4 @@
-package s4.B183331; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183331; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -11,8 +11,8 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 public class InformationEstimator implements InformationEstimatorInterface{
@@ -35,9 +35,9 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public void setTarget(byte [] target) { myTarget = target;}
-    public void setSpace(byte []space) { 
+    public void setSpace(byte []space) {
 	myFrequencer = new Frequencer();
-	mySpace = space; myFrequencer.setSpace(space); 
+	mySpace = space; myFrequencer.setSpace(space);
     }
 
     public double estimation(){
@@ -46,7 +46,44 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	np = 1<<(myTarget.length-1);
 	// System.out.println("np="+np+" length="+myTarget.length);
 	double value = Double.MAX_VALUE; // value = mininimum of each "value1".
+  ///*
+  double [] parts_Iq = new double[myTarget.length+1];
 
+  if(mySpace.length == 0){
+    return value;
+  }
+
+  for(int i=0; i<myTarget.length+1;i++){
+    parts_Iq[i] = (double) 0.0;
+  }
+
+  if(myTarget.length > 0){
+    myFrequencer.setTarget(subBytes(myTarget, 0, 1));
+    parts_Iq[1] = iq(myFrequencer.frequency());
+  }
+
+  if(myTarget.length == 1){
+    return parts_Iq[1];
+  }
+
+  else if(myTarget.length >= 2){
+    for(int j=2; j<myTarget.length+1;j++){
+      value = Double.MAX_VALUE;
+      for(int k=1; k<=j;k++){
+        double value1 = (double) 0.0;
+        myFrequencer.setTarget(subBytes(myTarget, k-1, j));
+
+        value1 = parts_Iq[k-1] + iq(myFrequencer.frequency());
+
+        if(value1 < value){
+          parts_Iq[j] = value1;
+          value = value1;
+        }
+      }
+    }
+  }//*/
+
+/*
 	for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
 	    // binary representation of p forms partition.
 	    // for partition {"ab" "cde" "fg"}
@@ -66,7 +103,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    while(start<myTarget.length) {
 		// System.out.write(myTarget[end]);
 		end++;;
-		while(partition[end] == false) { 
+		while(partition[end] == false) {
 		    // System.out.write(myTarget[end]);
 		    end++;
 		}
@@ -80,7 +117,9 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    // Get the minimal value in "value"
 	    if(value1 < value) value = value1;
 	}
+*/
 	return value;
+  //return parts_Iq[myTarget.length];
     }
 
     public static void main(String[] args) {
@@ -102,8 +141,3 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	System.out.println(">00 "+value);
     }
 }
-				  
-			       
-
-	
-    

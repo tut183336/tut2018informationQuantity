@@ -30,9 +30,32 @@ public interface InformationEstimatorInterface{
 
 
 public class TestCase {
+    public int freqTest(byte[] target ,byte[] space) {
+        FrequencerInterface testObject = new s4.B183349.Frequencer();
+        testObject.setTarget(target);
+        testObject.setSpace(space);
+        return testObject.frequency();
+    }
+
+    public int freqSubTest(byte[] target ,byte[] space ,int start ,int end) {
+        FrequencerInterface testObject = new s4.B183349.Frequencer();
+        testObject.setTarget(target);
+        testObject.setSpace(space);
+        return testObject.subByteFrequency(start ,end);
+    }
+
+    public double infoTest(byte[] target ,byte[] space) {
+        InformationEstimatorInterface testObject = new InformationEstimator();
+        testObject.setTarget(target);
+        testObject.setSpace(space);
+        return testObject.estimation();
+    }
+
     public static void main(String[] args) {
+      TestCase test = new TestCase();
 	try {
 	    FrequencerInterface  myObject;
+      FrequencerInterface  noObject;
 	    int freq;
 	    System.out.println("checking s4.B183349.Frequencer");
 	    myObject = new s4.B183349.Frequencer();
@@ -41,9 +64,13 @@ public class TestCase {
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+      if(test.freqSubTest("Hi Ho Hi Ho".getBytes() ,"H".getBytes(),2,8) == 2) { System.out.println("sub_OK"); } else {System.out.println("sub_WRONG"); }
+      if((test.freqTest(null ,"H".getBytes()) == -1) || (test.freqTest("".getBytes() ,"H".getBytes()) == -1)) {System.out.println("noTarget_OK"); } else {System.out.println("noTarget_WRONG"); }
+      if((test.freqTest("Hi Ho".getBytes() ,null) == 0) || (test.freqTest("Hi Ho".getBytes() ,"".getBytes()) == 0)) {System.out.println("nosSpace_OK"); } else {System.out.println("noSpace_WRONG"); }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
 	}
 
 	try {
@@ -64,9 +91,16 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
+
+      myObject.setTarget("9".getBytes());
+      if(myObject.estimation() == Double.MAX_VALUE) {System.out.println("Infinit checked"); }
+      if((test.infoTest(null,"12321".getBytes()) == 0.0) || (test.infoTest("".getBytes(),"12321".getBytes()) == 0.0)) {System.out.println("noTarget_OK"); } else {System.out.println("noTarget_WRONG"); }
+      if(test.infoTest("1".getBytes(),null) == Double.MAX_VALUE) {System.out.println("noSpace_OK"); } else {System.out.println("noSpace_NG"); }
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
 	}
 
     }

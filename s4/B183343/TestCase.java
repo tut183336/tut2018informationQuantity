@@ -1,4 +1,4 @@
-package s4.B183343; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183343; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -24,8 +24,8 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 
@@ -34,8 +34,8 @@ public class TestCase {
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("checking s4.B183343.Frequencer");
-	    myObject = new s4.B183343.Frequencer();
+	    System.out.println("checking s4.umemura.Frequencer");
+	    myObject = new s4.umemura.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
@@ -49,8 +49,8 @@ public class TestCase {
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
-	    System.out.println("checking s4.B183343.InformationEstimator");
-	    myObject = new s4.B183343.InformationEstimator();
+	    System.out.println("checking s4.umemura.InformationEstimator");
+	    myObject = new s4.umemura.InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
@@ -70,5 +70,4 @@ public class TestCase {
 	}
 
     }
-}	    
-	    
+}

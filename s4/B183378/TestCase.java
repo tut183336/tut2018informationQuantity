@@ -1,4 +1,4 @@
-package s4.B183378; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+  package s4.B183378; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -37,14 +37,55 @@ public class TestCase {
 	    System.out.println("checking s4.B183378.Frequencer");
 	    myObject = new s4.B183378.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        System.out.println("targetを未設定時でのfrequrency()呼び出し");
+        freq = myObject.frequency();
+	    System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
+    try {
+        FrequencerInterface  myObject;
+        int freq;
+        myObject = new s4.B183378.Frequencer();
+        myObject.setSpace("Hi Ho Hi Ho".getBytes());
+        myObject.setTarget("H".getBytes());
+        System.out.println("target、spaceを0以外で設定時でのfrequrency()呼び出し");
+        freq = myObject.frequency();
+        System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    catch(Exception e) {
+        System.out.println("Exception occurred: STOP");
+    }
+    try {
+        FrequencerInterface  myObject;
+        int freq;
+        myObject = new s4.B183378.Frequencer();
+        myObject.setSpace("Hi Ho Hi Ho".getBytes());
+        System.out.println("targetが0の時でのfrequency()の呼び出し");
+        myObject.setTarget("".getBytes());
+        freq = myObject.frequency();
+        System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    catch(Exception e) {
+        System.out.println("Exception occurred: STOP");
+    }
+    try {
+        FrequencerInterface  myObject;
+        int freq;
+        myObject = new s4.B183378.Frequencer();
+        myObject.setTarget("H".getBytes());
+        System.out.println("spaceが0の時でのfrequency()の呼び出し");
+        myObject.setSpace("".getBytes());
+        freq = myObject.frequency();
+        System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }        }
+    catch(Exception e) {
+        System.out.println("Exception occurred: STOP");
+      }
 
 	try {
 	    InformationEstimatorInterface myObject;

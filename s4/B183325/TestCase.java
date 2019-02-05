@@ -1,4 +1,4 @@
-package s4.B183325; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183325; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -24,28 +24,133 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 
 public class TestCase {
     public static void main(String[] args) {
+
+	System.out.println("checking s4.B183325.Frequencer");
+
+	// It returns -1 when TARGET is not set.
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("checking s4.B183325.Frequencer");
+	    System.out.println("It returns -1 when TARGET is not set.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    freq = myObject.frequency();
+	    System.out.println("null in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+	// It returns -1 when TARGET's length is zero.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("It returns -1 when TARGET's length is zero.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    System.out.println("\"\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+	 // It returns 0 when SPACE is not set.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("It returns 0 when SPACE is not set.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    System.out.println("\"H\" in null appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+	// It returns 0 when SPACE's length is zero.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("It returns 0 when SPACE's length is zero.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    System.out.println("\"H\" in \"\" appears "+freq+" times. ");
+	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+        // Returns the frequency of TAGET in SPACE.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("Returns the frequency of TAGET in SPACE.");
 	    myObject = new s4.B183325.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+	// Return 1 when START is 3 snd END is 4.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("Return 1 when START is 3 snd END is 4.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.subByteFrequency(0, 1);
+	    System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+	System.out.println("");
+
+	// return 4 when START is 0 snd END is 11.
+	try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("creturn 4 when START is 0 snd END is 11.");
+	    myObject = new s4.B183325.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.subByteFrequency(0, 11);
+	    System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
+	System.out.println("");
+	
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
@@ -70,5 +175,4 @@ public class TestCase {
 	}
 
     }
-}	    
-	    
+}

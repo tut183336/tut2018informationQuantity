@@ -44,7 +44,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
 	np = 1<<(myTarget.length-1);
-	// System.out.println("np="+np+" length="+myTarget.length);
+	//System.out.println("np="+np+" length="+myTarget.length);
 	double value = Double.MAX_VALUE; // value = mininimum of each "value1".
 
 	for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
@@ -53,29 +53,29 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    // a b c d e f g   : myTarget
 	    // T F T F F T F T : partition:
 	    partition[0] = true; // I know that this is not needed, but..
-	    for(int i=0; i<myTarget.length -1;i++) {
+	    for(int i=0; i<myTarget.length -1; i++) {
 		partition[i+1] = (0 !=((1<<i) & p));
 	    }
 	    partition[myTarget.length] = true;
 
 	    // Compute Information Quantity for the partition, in "value1"
 	    // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
-            double value1 = (double) 0.0;
-	    int end = 0;;
+        double value1 = (double) 0.0;
+	    int end = 0;
 	    int start = end;
 	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
-		end++;;
+		//System.out.write(myTarget[end]);
+		end++;
 		while(partition[end] == false) { 
-		    // System.out.write(myTarget[end]);
+		    //System.out.write(myTarget[end]);
 		    end++;
 		}
-		// System.out.print("("+start+","+end+")");
+		//System.out.print("("+start+","+end+")");
 		myFrequencer.setTarget(subBytes(myTarget, start, end));
 		value1 = value1 + iq(myFrequencer.frequency());
 		start = end;
 	    }
-	    // System.out.println(" "+ value1);
+	    //System.out.println(" "+ value1);
 
 	    // Get the minimal value in "value"
 	    if(value1 < value) value = value1;
@@ -83,23 +83,56 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	return value;
     }
 
+	public double estimationAfter(){
+		double[] iqarray = new double[myTarget.length];
+		double value;
+		double np;
+		for(int j=0; j<myTarget.length; j++){
+			value = Double.MAX_VALUE;
+			for(int k=0; k<=j; k++){
+				myFrequencer.setTarget(subBytes(myTarget, k, j+1));
+				if(k == 0){
+					np = iq(myFrequencer.frequency());
+				}
+				else{
+					np = iq(myFrequencer.frequency()) + iqarray[k-1];
+				}
+				if(value > np){
+					value = np;
+				}
+			}
+			
+			iqarray[j] = value;
+    	}
+		return iqarray[myTarget.length-1];
+	}
+	
     public static void main(String[] args) {
 	InformationEstimator myObject;
 	double value;
+    double value2;
 	myObject = new InformationEstimator();
 	myObject.setSpace("3210321001230123".getBytes());
 	myObject.setTarget("0".getBytes());
-	value = myObject.estimation();
+	value = myObject.estimationAfter();
+    value2 = myObject.estimation();
 	System.out.println(">0 "+value);
+    System.out.println(">0 "+value2);
 	myObject.setTarget("01".getBytes());
-	value = myObject.estimation();
+	value = myObject.estimationAfter();
+    value2 = myObject.estimation();
 	System.out.println(">01 "+value);
+    System.out.println(">01 "+value2);
 	myObject.setTarget("0123".getBytes());
-	value = myObject.estimation();
+	value = myObject.estimationAfter();
+   	value2 = myObject.estimation();
 	System.out.println(">0123 "+value);
+    System.out.println(">0123 "+value2);
 	myObject.setTarget("00".getBytes());
-	value = myObject.estimation();
+	value = myObject.estimationAfter();
+   	value2 = myObject.estimation();
 	System.out.println(">00 "+value);
+    System.out.println(">00 "+value2);
     }
 }
 				  

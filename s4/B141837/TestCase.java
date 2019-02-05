@@ -28,6 +28,7 @@ public interface InformationEstimatorInterface{
 }                        
 */
 
+//Frequencerのテストコードについて、specificationの記述ごとに対応するテストケースを1つ以上作り、TestCase.javaに記述を追加せよ
 
 public class TestCase {
     public static void main(String[] args) {

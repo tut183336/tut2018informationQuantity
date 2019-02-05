@@ -1,4 +1,4 @@
-package s4.B183307; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183307; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -24,8 +24,8 @@ public interface InformationEstimatorInterface{
 // It returns Double.MAX_VALUE, when the true value is infinite, or space is not set.
 // The behavior is undefined, if the true value is finete but larger than Double.MAX_VALUE.
 // Note that this happens only when the space is unreasonably large. We will encounter other problem anyway.
-// Otherwise, estimation of information quantity, 
-}                        
+// Otherwise, estimation of information quantity,
+}
 */
 
 
@@ -45,7 +45,48 @@ public class TestCase {
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
+  try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B183307.Frequencer");
+	    myObject = new s4.B183307.Frequencer();
+	    myObject.setSpace("aaaa".getBytes());
+	    myObject.setTarget("aa".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print("\"a\" in \"aaaa\" appears "+freq+" times. ");
+	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+  try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B183307.Frequencer");
+	    myObject = new s4.B183307.Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("a".getBytes());
+	    freq = myObject.frequency();
+      System.out.print("Space is not Set ");
+	    if(0 == freq){System.out.println("OK");}else{System.out.println("WRONG");}
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
+  try {
+	    FrequencerInterface  myObject;
+	    int freq;
+	    System.out.println("checking s4.B183307.Frequencer");
+	    myObject = new s4.B183307.Frequencer();
+	    myObject.setSpace("aaaa".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+      System.out.print("Taget is not Set ");
+	    if(-1 == freq){System.out.println("OK");}else{System.out.println("WRONG");}
+	}
+	catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	}
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
@@ -64,11 +105,22 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
+      System.out.println("checking s4.B183307.InformationEstimator");
+	    myObject.setTarget("".getBytes());
+	    value = myObject.estimation();
+      System.out.print("Target is not Set ");
+	    if(0.0 == value){System.out.println("OK");}else{System.out.println("WRONG");}
+
+      System.out.println("checking s4.B183307.InformationEstimator");
+	    myObject.setSpace("".getBytes());
+	    value = myObject.estimation();
+      System.out.print("Space is not Set ");
+	    if(Double.MAX_VALUE == value){System.out.println("OK");}else{System.out.println("WRONG");}
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
+
     }
-}	    
-	    
+}

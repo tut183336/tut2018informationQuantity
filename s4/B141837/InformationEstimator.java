@@ -1,4 +1,4 @@
-package s4.B141837; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B141837; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -14,6 +14,11 @@ public interface InformationEstimatorInterface{
 // Otherwise, estimation of information quantity, 
 }                        
 */
+/*
+動的計画法　分割統治法
+未完了
+*/
+
 
 public class InformationEstimator implements InformationEstimatorInterface{
     // Code to tet, *warning: This code condtains intentional problem*

@@ -17,6 +17,9 @@ public interface InformationEstimatorInterface {
 
     /**
      * Estimate information quantity.
+     * TAGET and SPACE is the most recenly specified bytes by setTarget, or setSpace.
+     * If either target[] or space[] is modified after setTaget, or setSpace,
+     * the behavior is undefined
      *
      * It returns 0.0 when the TARGET is not set or TARGET's length is zero;
      * It returns Double.MAX_VALUE when the true value is infinite, or SPACE is not set.

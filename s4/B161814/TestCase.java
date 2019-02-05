@@ -30,17 +30,53 @@ public interface InformationEstimatorInterface{
 
 
 public class TestCase {
+    public void FrequencerInterfaceTest(String space, String target, int expected){
+        FrequencerInterface myObject;
+        myObject = new s4.B161814.Frequencer();
+        if(space != null){
+            myObject.setSpace(space.getBytes());
+        }
+        if(target != null){
+            myObject.setTarget(target.getBytes());
+        }
+        int freq = myObject.frequency();
+        System.out.print("\"" + target + "\" in \"" + space +"\" appears "+freq+" times. ");
+        if(expected == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    
+    public void subByteFrequencyTest(int start, int end, int expected){
+        myObject = new s4.B161814.Frequencer();
+        int freq = myObject.subByteFrequency(start, end);
+        if(expected == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    
+    public void InformationEstimatorInterfaceTest(String space, String target, double expected){
+        myObject = new s4.B161814.InformationEstimator();
+        if(space != null){
+            myObject.setSpace(space.getBytes());
+        }
+        if(target != null){
+            myObject.setTarget(target.getBytes());
+        }
+        double value = myObject.estimation();
+        System.out.println(">" + target + " " + value);
+        if(expected == value) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    
     public static void main(String[] args) {
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
 	    System.out.println("checking s4.B161814.Frequencer");
-	    myObject = new s4.B161814.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        /*
+        FrequencerInterfaceTest("Hi Ho Hi Ho", "H", 4);
+        FrequencerInterfaceTest("Hi Ho Hi Ho", "", -1);
+        FrequencerInterfaceTest("Hi Ho Hi Ho", null, -1);
+        FrequencerInterfaceTest("", "H", 0);
+        FrequencerInterfaceTest(null, "H", 0);
+        
+        subByteFrequencyTest(0,3,2);
+        */
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
@@ -64,6 +100,13 @@ public class TestCase {
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
+        
+        /*
+        InformationEstimatorInterfaceTest("3210321001230123", null, 0.0);
+        InformationEstimatorInterfaceTest("3210321001230123", "", 0.0);
+        InformationEstimatorInterfaceTest(null, "00", Double.MAX_VALUE);
+        InformationEstimatorInterfaceTest("");*/
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");

@@ -1,4 +1,4 @@
-package s4.B183307; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.B183312; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
 import java.lang.*;
 import s4.specification.*;
 
@@ -19,6 +19,8 @@ public class InformationEstimator implements InformationEstimatorInterface{
     // Code to tet, *warning: This code condtains intentional problem*
     byte [] myTarget; // data to compute its information quantity
     byte [] mySpace;  // Sample space to compute the probability
+    boolean targetReady = false;
+    boolean spaceReady = false;
     FrequencerInterface myFrequencer;  // Object for counting frequency
 
     byte [] subBytes(byte [] x, int start, int end) {
@@ -34,17 +36,24 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
     }
 
-    public void setTarget(byte [] target) { myTarget = target;}
+    /*public void setTarget(byte [] target) { myTarget = target;}
     public void setSpace(byte []space) { 
 	myFrequencer = new Frequencer();
 	mySpace = space; myFrequencer.setSpace(space); 
+    }*/
+
+    public void setTarget(byte [] target) { myTarget = target; if(target.length>0) targetReady = true;}
+    public void setSpace(byte []space) { 
+    myFrequencer = new Frequencer();
+    mySpace = space; myFrequencer.setSpace(space); 
+    spaceReady = true;
     }
 
-    public double estimation(){
+    /*public double estimation(){
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
-	np = 1<<(myTarget.length-1);
-	// System.out.println("np="+np+" length="+myTarget.length);
+	np = 1<<(myTarget.length-1); //np=2^(n-1)
+	//System.out.println("np="+np+" length="+myTarget.length);
 	double value = Double.MAX_VALUE; // value = mininimum of each "value1".
 
 	for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
@@ -60,20 +69,20 @@ public class InformationEstimator implements InformationEstimatorInterface{
 
 	    // Compute Information Quantity for the partition, in "value1"
 	    // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
-            double value1 = (double) 0.0;
+        double value1 = (double) 0.0;
 	    int end = 0;;
 	    int start = end;
 	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
-		end++;;
-		while(partition[end] == false) { 
-		    // System.out.write(myTarget[end]);
-		    end++;
-		}
-		// System.out.print("("+start+","+end+")");
-		myFrequencer.setTarget(subBytes(myTarget, start, end));
-		value1 = value1 + iq(myFrequencer.frequency());
-		start = end;
+		      // System.out.write(myTarget[end]);
+		      end++;;
+		      while(partition[end] == false) { 
+		          // System.out.write(myTarget[end]);
+		          end++;
+		      }
+		      // System.out.print("("+start+","+end+")");
+		      myFrequencer.setTarget(subBytes(myTarget, start, end));
+		      value1 = value1 + iq(myFrequencer.frequency());
+		      start = end;
 	    }
 	    // System.out.println(" "+ value1);
 
@@ -81,7 +90,52 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    if(value1 < value) value = value1;
 	}
 	return value;
+    }*/
+
+    public double estimation(){
+        if(targetReady == false) return (double) 0.0;
+        if(spaceReady == false) return Double.MAX_VALUE;
+
+        myFrequencer.setTarget(myTarget);
+
+        double [] prefixEstimation = new double[myTarget.length+1];
+
+    prefixEstimation[0] = (double) 0.0; //IE("") = 0.0; 
+
+    for(int n=1;n<=myTarget.length;n++) {
+            // target = "abcdef..", n = 4 for example, subByte(0, 4) = "abcd",
+            // IE("abcd") = min( IE("")+iq(#"abcd"),
+        //                   IE("a") + iq(#"bcd"), 
+        //                   IE("ab")+iq(#"cd"), 
+            //                   IE("abc")+iq(#"d") )
+            // prefixEstimation[0] = IE(""), subByte(0,4) = "abcd", 
+            // prefixEstimation[1] = IE("a");  subByte(1,4)= "bcd",
+            // prefixEstimation[2] = IE("ab");  subByte(2,4)= "cd",
+            // prefixEstimation[3] = IE("abc");  subByte(3,4)= "d", 
+        // prefixEstimation[4] = IE("abcd");
+        //
+        double value = Double.MAX_VALUE;
+        for(int start=n-1;start>=0;start--) {
+            int freq = myFrequencer.subByteFrequency(start, n);
+            System.out.println("freq=" + freq + ",start=" + start + ",n=" + n);
+            if(freq != 0) {
+            // update "value" if it is needed.
+                double value1 = prefixEstimation[start]+iq(freq);
+                if(value>value1) value = value1;
+            } else {
+            // here freq ==0. This means iq(freq) is infinite.
+            // freq is monotonically descreasing in this loop.
+            // Now the current "value" is the minimum.
+                break; 
+            }
+        }
+        prefixEstimation[n]=value;
     }
+    for(int i = 0; i < myTarget.length + 1; i++)
+        System.out.println("array[" + i + "] = " + prefixEstimation[i]);
+    return prefixEstimation[myTarget.length];
+
+}
 
     public static void main(String[] args) {
 	InformationEstimator myObject;
@@ -102,8 +156,3 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	System.out.println(">00 "+value);
     }
 }
-				  
-			       
-
-	
-    

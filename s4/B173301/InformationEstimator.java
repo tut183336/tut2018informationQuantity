@@ -1,4 +1,4 @@
-package s4.B173301; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.umemura; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
 import java.lang.*;
 import s4.specification.*;
 
@@ -63,21 +63,21 @@ public class InformationEstimator implements InformationEstimatorInterface{
             double value1 = (double) 0.0;
 	    int end = 0;;
 	    int start = end;
-	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
-		end++;;
-		while(partition[end] == false) { 
-		    // System.out.write(myTarget[end]);
-		    end++;
-		}
-		// System.out.print("("+start+","+end+")");
-		myFrequencer.setTarget(subBytes(myTarget, start, end));
-		value1 = value1 + iq(myFrequencer.frequency());
-		start = end;
-	    }
-	    // System.out.println(" "+ value1);
-
-	    // Get the minimal value in "value"
+	    while(start<myTarget.length) { 
+		// System.out.write(myTarget[end]); 
+		end++;; 
+		while(partition[end] == false) {  
+		    // System.out.write(myTarget[end]); 
+		    end++; 
+		} 
+		// System.out.print("("+start+","+end+")"); 
+		myFrequencer.setTarget(subBytes(myTarget, start, end)); 
+		value1 = value1 + iq(myFrequencer.frequency()); 
+		start = end; 
+	    } 
+	    // System.out.println(" "+ value1);  
+ 
+	    // Get the minimal value in "value" 
 	    if(value1 < value) value = value1;
 	}
 	return value;

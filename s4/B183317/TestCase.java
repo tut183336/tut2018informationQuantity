@@ -36,9 +36,24 @@ public class TestCase {
 	    int freq;
 	    System.out.println("checking s4.B183317.Frequencer");
 	    myObject = new s4.B183317.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    freq = myObject.frequency(); //when no set
+	    System.out.print(freq); //return -1 ?
+	    
+	    myObject.setTarget("".getBytes()); //when Target's length is zero or Target is not set
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes()); //and something is set in Space
+	    freq = myObject.frequency(); //return -1 ?
+	    System.out.print(freq);
+
+	    myObject.setTarget("H".getBytes()); //when something is set in Target
+	    myObject.setSpace("".getBytes()); //and Spaece's length is zore or Space is not set
+	    freq = myObject.frequency(); //return 0 ?
+	    System.out.print(freq);
+	    
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print(freq);
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
@@ -51,16 +66,26 @@ public class TestCase {
 	    double value;
 	    System.out.println("checking s4.B183317.InformationEstimator");
 	    myObject = new s4.B183317.InformationEstimator();
+	    value = myObject.estimation(); //when no set
+	    System.out.println(value); //return 0.0 ?
+
+	    myObject.setTarget("0".getBytes); //when no set in Space and something set in Target
+	    value = myObject.estimation(); //return Double.Max_Value ?
+	    System.out.println(">0"+value);
+	    
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">0 "+value);
+	    
 	    myObject.setTarget("01".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">01 "+value);
+	    
 	    myObject.setTarget("0123".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">0123 "+value);
+	    
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);

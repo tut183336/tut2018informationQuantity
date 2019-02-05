@@ -30,45 +30,123 @@ public interface InformationEstimatorInterface{
 
 
 public class TestCase {
-    public static void main(String[] args) {
-	try {
-	    FrequencerInterface  myObject;
-	    int freq;
-	    System.out.println("checking s4.B183364.Frequencer");
-	    myObject = new s4.B183364.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
-
-	try {
-	    InformationEstimatorInterface myObject;
-	    double value;
-	    System.out.println("checking s4.B183364.InformationEstimator");
-	    myObject = new s4.B183364.InformationEstimator();
-	    myObject.setSpace("3210321001230123".getBytes());
-	    myObject.setTarget("0".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">0 "+value);
-	    myObject.setTarget("01".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">01 "+value);
-	    myObject.setTarget("0123".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">0123 "+value);
-	    myObject.setTarget("00".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">00 "+value);
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
-
+ 
+  static void frequencerInterfaceFrequencerTest(String space, String target, int count) {
+    try{
+      FrequencerInterface myObject;
+      int freq;
+      myObject = new s4.B183364.Frequencer();
+      if(space != null) myObject.setSpace(space.getBytes());
+      if(target != null) myObject.setTarget(target.getBytes());
+      freq = myObject.frequency();
+      if(count == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
     }
+    catch(Exception e){
+      System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
+    }
+  }
+
+  static void frequencerInterfaceSubByteFrequencerTest(String space, String target, int start, int end, int count) {
+    try{
+      FrequencerInterface myObject;
+      int subFreq;
+      myObject = new s4.B183364.Frequencer();
+      if(space != null) myObject.setSpace(space.getBytes());
+      if(target != null) myObject.setTarget(target.getBytes());
+      subFreq = myObject.subByteFrequency(start, end);
+      if(count == subFreq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    catch(Exception e){
+      System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
+    }
+  }
+
+  static void informationEstimatorBlackTest(String space, String target) {
+    try{
+      InformationEstimator myObject;
+      double value;
+      myObject = new s4.B183364.InformationEstimator();
+      myObject.setSpace(space.getBytes());
+      myObject.setTarget(target.getBytes());
+      value = myObject.estimation();
+      System.out.println(">" + target + " " + value);
+    }
+    catch(Exception e){
+      System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
+    }
+  }
+
+  static void informationEstimatorWhiteTest(String space, String target, double valid) {
+    try{
+      InformationEstimator myObject;
+      double value;
+      myObject = new s4.B183364.InformationEstimator();
+      if(space != null) myObject.setSpace(space.getBytes());
+      if(target != null) myObject.setTarget(target.getBytes());
+      value = myObject.estimation();
+      if(valid == value) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+    }
+    catch(Exception e){
+      System.out.println("Exception occurred: STOP");
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String[] args) {
+	  try {
+      System.out.println("checking s4.B183364.Frequencer");
+      
+	    System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears 4 times. ");
+	    frequencerInterfaceFrequencerTest("Hi Ho Hi Ho", "H", 4);
+
+      System.out.println("When length of setSpace() is zero, return 0. ");
+      frequencerInterfaceFrequencerTest("", "H", 0);
+
+      System.out.println("When setSpace() is not doing, return 0. ");
+      frequencerInterfaceFrequencerTest(null , "H", 0);
+
+      System.out.println("When length of setTarget() is zero, return -1. ");
+      frequencerInterfaceFrequencerTest("Hi Ho Hi Ho", "", -1);
+
+      System.out.println("When setSpace() is not doing, return 0. ");
+      frequencerInterfaceFrequencerTest("Hi Ho Hi Ho" , null, -1);
+
+      System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears 4 times from 2 to 8. ");
+      frequencerInterfaceSubByteFrequencerTest("Hi Ho Hi Ho" , "H", 2, 8, 2);
+
+      System.out.println(" ");
+      frequencerInterfaceSubByteFrequencerTest("012345678" , "34", 3, 4, 1);
+
+	  } catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	  }
+
+	  try {
+	    System.out.println("checking s4.B183364.InformationEstimator");
+
+      informationEstimatorBlackTest("3210321001230123", "0");
+
+      informationEstimatorBlackTest("3210321001230123", "01");
+
+      informationEstimatorBlackTest("3210321001230123", "0123");
+
+      informationEstimatorBlackTest("3210321001230123", "00");
+
+      informationEstimatorBlackTest("3210321001230123", "00");
+
+      informationEstimatorWhiteTest("3210321001230123", null, 0.0);
+
+      informationEstimatorWhiteTest("3210321001230123", "", 0.0);
+
+      informationEstimatorWhiteTest("", "0", Double.MAX_VALUE);
+      
+	  }
+	  catch(Exception e) {
+	    System.out.println("Exception occurred: STOP");
+	  }
+  }
 }	    
 	    
