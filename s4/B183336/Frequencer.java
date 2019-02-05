@@ -1,4 +1,4 @@
-package s4; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
+package s4.B183336; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.util.Arrays;
 
 import s4.specification.FrequencerInterface;
