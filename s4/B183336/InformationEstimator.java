@@ -90,19 +90,80 @@ public class InformationEstimator implements InformationEstimatorInterface {
 		InformationEstimator myObject;
 		double value;
 		myObject = new InformationEstimator();
+
+
+
+
 		myObject.setSpace("3210321001230123".getBytes());
 		myObject.setTarget("0".getBytes());
 		value = myObject.estimation();
-		System.out.println(">0 " + value);
+		System.out.println(">0 "+value);
 		myObject.setTarget("01".getBytes());
 		value = myObject.estimation();
-		System.out.println(">01 " + value);
+		System.out.println(">01 "+value);
 		myObject.setTarget("0123".getBytes());
 		value = myObject.estimation();
-		System.out.println(">0123 " + value);
+		System.out.println(">0123 "+value);
 		myObject.setTarget("00".getBytes());
 		value = myObject.estimation();
-		System.out.println(">00 " + value);
+		System.out.println(">00 "+value);
+
+
+		// Hi Ho        [0]
+    	// Ho			[1]
+    	// Ho Hi Ho		[2]
+    	//Hi Ho			[3]
+    	//Hi Ho Hi Ho	[4]
+    	//Ho			[5]
+    	//Ho Hi Ho		[6]
+    	//i Ho			[7]
+    	//i Ho Hi Ho	[8]
+    	//o				[9]
+    	//o Hi Ho		[10]
+		/*
+		myObject.setTarget(" Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println("> Hi Ho = " + value);
+		myObject.setTarget(" Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println("> Ho = " + value);
+		myObject.setTarget(" Ho Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println("> Ho Hi Ho = " + value);
+
+		myObject.setTarget("Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">Hi Ho = " + value);
+
+		myObject.setTarget("Hi Ho Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">Hi Ho Hi Ho = " + value);
+
+		myObject.setTarget("Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">Ho = " + value);
+
+		myObject.setTarget("Ho Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">Ho Hi Ho = " + value);
+
+		myObject.setTarget("i Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">i Ho = " + value);
+
+		myObject.setTarget("i Ho Hi Ho".getBytes());
+		value = myObject.estimation();
+		System.out.println(">i Ho Hi Ho = " + value);
+
+		myObject.setTarget("o".getBytes());
+		value = myObject.estimation();
+		System.out.println(">o = " + value);
+
+		myObject.setTarget("o".getBytes());
+		value = myObject.estimation();
+		System.out.println(">o Hi Ho = " + value);
+		*/
+
 	}
 }
 
