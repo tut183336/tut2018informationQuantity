@@ -206,6 +206,10 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
     reg                     exec_delay;                  
     reg [31:0]              hi;
     reg [31:0]              lo;
+    
+    
+    //instこいつらがR[]ってこと
+    //たとえば、inst_rrsは、R[rs]である。
     reg [23:0]              inst_ir;
     reg [`ADDR]             inst_pc;
     reg [4:0]               inst_rs;
@@ -263,6 +267,12 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
     wire [31:0]             GPRWRITEDT1;
     wire                    GPRWE0;
     wire                    GPRWE1;
+    
+    //追加 それぞれの結果を保持するところ。
+    wire[31:0]              addr;
+    wire[31:0]              addir;
+    wire[31:0]              subr;
+    
 
     wire signed [31:0]      inst_rrt_signed;
     
@@ -296,6 +306,17 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
         else
           state       <= state + 1;
     end
+    
+    //CPU_START...動作開始
+    //CPU_IF0~IF3...命令フェッチ
+    //CPU_ID...命令デコード
+    //CPU_RF... レジスタフェッチ
+    //CPU_EX...実行
+    //CPU_WB...書き直し
+    
+    //stateにこいつらがはいって、条件分岐している。
+    
+    
 
     /*** Mips::fetch() ***********************************************/
     assign ADDR = (state <= `CPU_IF0)? pc     : 
@@ -427,6 +448,22 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
                     IDOP        = `DIVU_____;
                     IDATTR      = `WRITE_HILO;
                 end
+				6'd32: begin
+					IDOP		= `ADD______;
+					IDATTR		= `WRITE_RD;
+				end
+				6'd33: begin
+					IDOP		= `ADDU_____;
+					IDATTR		= `WRITE_RD;
+                end
+				6'd34: begin
+					IDOP		= `SUB______;
+					IDATTR		= `WRITE_RD;
+                end
+				6'd35: begin
+					IDOP		= `SUBU_____;
+					IDATTR		= `WRITE_RD;
+                end
                 6'd36: begin
                     IDOP        = `AND______;
                     IDATTR      = `WRITE_RD;
@@ -512,6 +549,14 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
           6'd7: begin
               IDOP              = `BGTZ_____;
               IDATTR            = `BRANCH;
+          end
+          6'd8: begin
+              IDOP              = `ADDI_____;
+              IDATTR            = `WRITE_RT;
+          end
+          6'd9: begin
+              IDOP              = `ADDIU____;
+              IDATTR            = `WRITE_RT;
           end
           6'd10: begin
               IDOP              = `SLTI_____;
@@ -660,6 +705,7 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
     end
 
     /*** Mips::execute() *********************************************/
+	//inst_opは、各命令のマクロの値が代入されている。
     function [31:0] EXTS32;
         input [15:0] in;
         EXTS32 = (in[15])? {16'hffff, in} : {16'h0000, in};
@@ -772,6 +818,19 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
               {EXRSLTHI, EXRSLT} = (inst_rrt)? DURSLT : 0;
               EXBUSY = DUBUSY;
           end
+		  `ADD______ : begin
+			  EXRSLT = addr;
+		  end
+		  `ADDU_____ : begin
+			  EXRSLT = addr;
+		  end
+		  `SUB______ : begin
+			  EXRSLT = subr;
+		  end
+		  `SUBU_____ : begin
+			  EXRSLT = subr;
+		  end
+
           `AND______ : begin
               EXRSLT  = inst_rrs & inst_rrt;
           end
@@ -859,6 +918,12 @@ module MipsCore(CLK, RST_X, ADDR, DATA_IN, DATA_OUT, WE);
               EXNPC   = inst_pc + (EXTSADDR(inst_imm) << 2) + 4;
               EXCOND  = (~inst_rrs[31] && (inst_rrs != 0)) ? 1'b1 : 1'b0;
           end
+		  `ADDI_____ : begin
+			  EXRSLT = addir;
+		  end
+		  `ADDIU____ : begin
+			  EXRSLT = addir;
+		  end
           `BGTZL____ : begin
               EXNPC   = inst_pc + (EXTSADDR(inst_imm) << 2) + 4;
               EXCOND  = (~inst_rrs[31] && (inst_rrs != 0)) ? 1'b1 : 1'b0;
