@@ -1,6 +1,4 @@
 package s4.B183336; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
-import java.util.Arrays;
-
 import s4.specification.FrequencerInterface;
 /*
 
@@ -79,11 +77,56 @@ public class Frequencer implements FrequencerInterface{
 
 		int mySpaceLength = mySpace.length;
 
-		byte[] suffix_id = Arrays.copyOfRange(mySpace,i,mySpace.length+1);
-		byte[] suffix_jd = Arrays.copyOfRange(mySpace,j,mySpace.length+1);
 
-		int suffix_id_length = suffix_id.length-1;//仕様で-1しよう
-		int suffix_jd_length = suffix_jd.length-1;//仕様で-1しよう
+		//byte[] suffix_id = Arrays.copyOfRange(mySpace,i,mySpace.length+1);
+		//byte[] suffix_jd = Arrays.copyOfRange(mySpace,j,mySpace.length+1);
+
+		//String test1 = new String(suffix_id);
+		//String test2 = new String(suffix_jd);
+
+		byte[] suffix_id = new byte[mySpace.length-i];
+		byte[] suffix_jd = new byte[mySpace.length-j];
+
+
+		int ki = 0;
+		int kj = 0;
+
+		//System.out.println("↓");
+		for(int k = 0;k<mySpace.length;k++){
+			if(k>=i){
+				suffix_id[ki] = mySpace[k];
+				ki++;
+			}
+			if(k>=j){
+				suffix_jd[kj] = mySpace[k];
+				kj++;
+			}
+			//System.out.println(mySpace[k]);
+		}
+
+		//String test1b = new String(test_suffix_i);
+		//String test2b = new String(test_suffix_j);
+
+
+		//System.out.println("bi = "+test1b);
+		//System.out.println("bj = "+test2b);
+
+		//System.out.println("di = "+test1);
+		//System.out.println("dj = "+test2);
+
+
+		//int suffix_id_length = suffix_id.length-1;//仕様で-1しよう
+		//int suffix_jd_length = suffix_jd.length-1;//仕様で-1しよう
+
+
+		int suffix_id_length = suffix_id.length;
+		int suffix_jd_length = suffix_jd.length;
+
+		//System.out.println("length"+test_i);
+		//System.out.println("length"+test_j);
+		//System.out.println("length"+suffix_id_length);
+		//System.out.println("length"+suffix_jd_length);
+
 
 		for(int k = 0;k < mySpaceLength;k++){
 
@@ -214,11 +257,48 @@ public class Frequencer implements FrequencerInterface{
 		// "Ho"      <     "Ho "   : "Ho " is not in the head of suffix "Ho"
 		// "Ho"      =     "H"     : "H" is in the head of suffix "Ho"
 
-		byte[] suffix_id = Arrays.copyOfRange(mySpace,suffixArray[i],mySpace.length+1);
-		byte[] target_jd = Arrays.copyOfRange(myTarget,j,end+1);
+		byte[] suffix_id = new byte[mySpace.length-suffixArray[i]];
+		byte[] target_jd = new byte[end-j];
 
-		int suffix_id_length = suffix_id.length-1;//Arrays.copyOfRangeの仕様で-1しないとうまくいかん。
-		int target_d_length = target_jd.length-1;//Arrays.copyOfRangeの仕様で-1しないとうまくいかん。
+
+		int ki = 0;
+		int lj = 0;
+
+		//System.out.println("↓");
+		for(int k = 0;k<mySpace.length;k++){
+			if(k>=suffixArray[i]){
+				suffix_id[ki] = mySpace[k];
+				ki++;
+			}
+			//System.out.println(mySpace[k]);
+		}
+
+		for(int l = 0;l<myTarget.length;l++){
+			if((l >= j)&&(l <= end-1)){
+				target_jd[lj] = myTarget[l];
+				lj++;
+			}
+		}
+
+
+		int suffix_id_length = suffix_id.length;
+		int target_d_length = target_jd.length;
+
+
+
+
+		//System.out.println("length =" + suffix_id_length);
+		//System.out.println("length =" + target_d_length);
+
+
+
+		String test1 = new String(suffix_id);
+		String test2 = new String(target_jd);
+
+		//System.out.println("di = "+test1);
+		//System.out.println("dj = "+test2);
+
+
 
 		for(int k = 0;k < target_d_length;k++){
 
@@ -456,10 +536,10 @@ public class Frequencer implements FrequencerInterface{
 
     public static void main(String[] args) {
 	Frequencer frequencerObject;
-	try {
+
 	    frequencerObject = new Frequencer();
-	    frequencerObject.setSpace("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".getBytes());
-	    frequencerObject.printSuffixArray(); // you may use this line for DEBUG
+	    frequencerObject.setSpace("AAAB".getBytes());
+	    //frequencerObject.printSuffixArray(); // you may use this line for DEBUG
 	    /* Example from "Hi Ho Hi Ho"
 	       0: Hi Ho
 	       1: Ho
@@ -474,7 +554,10 @@ public class Frequencer implements FrequencerInterface{
 	       A:o Hi Ho
 	    */
 
-	    frequencerObject.setTarget("A".getBytes());
+	    frequencerObject.setTarget("AAAAB".getBytes());
+
+	    int freq = frequencerObject.subByteFrequency(0,1);
+
 	    //
 	    // ****  Please write code to check subByteStartIndex, and subByteEndIndex
 	    //
@@ -483,9 +566,7 @@ public class Frequencer implements FrequencerInterface{
 	    System.out.print("Freq = "+ result+" ");
 	    if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
-	catch(Exception e) {
-	    System.out.println("STOP");
-	}
-    }
+
 }
+
 

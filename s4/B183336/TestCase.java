@@ -40,89 +40,74 @@ public class TestCase {
 	    myObject = new Frequencer();
 	    freq = myObject.frequency();
 	    if(-1 != freq) { System.out.println("frequency() should return -1, when target is not set, but returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setTarget("".getBytes());
 	    freq = myObject.frequency();
 	    if(-1 != freq) { System.out.println("frequency() should return -1, when target is empty, but return "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    if(-1 != freq) { System.out.println("frequency() for AAA should return -1, when target is  not set. But it returns  "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    myObject.setTarget("".getBytes());
 	    freq = myObject.frequency();
 	    if(-1 != freq) { System.out.println("frequency() for AAA should return -1, when taget empty string. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setTarget("A".getBytes());
 	    freq = myObject.frequency();
  	    if(0 != freq) { System.out.println("frequency() for not set, should return 0, when taget is not empty. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("".getBytes());
 	    myObject.setTarget("A".getBytes());
 	    freq = myObject.frequency();
  	    if(0 != freq) { System.out.println("frequency() for empty space, should return 0, when taget is not empty. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    myObject.setTarget("A".getBytes());
 	    freq = myObject.frequency();
 	    if(3 != freq) { System.out.println("frequency() for AAA, should return 3, when taget is A. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    myObject.setTarget("AA".getBytes());
 	    freq = myObject.frequency();
 	    if(2 != freq) { System.out.println("frequency() for AAA, should return 2, when taget is AA. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    myObject.setTarget("AAA".getBytes());
 	    freq = myObject.frequency();
 	    if(1 != freq) { System.out.println("frequency() for AAA, should return 1, when taget is AAA. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAA".getBytes());
 	    myObject.setTarget("AAAA".getBytes());
 	    freq = myObject.frequency();
 	    if(0 != freq) { System.out.println("frequency() for AAA, should return 0, when taget is AAAA. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    if(4 != freq) {System.out.println("frequency() for Hi_Ho_Hi_Ho, should return 4, when taget is H. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("Ho".getBytes());
 	    freq = myObject.frequency();
 	    if(2 != freq) {System.out.println("frequency() for Hi_Ho_Hi_Ho, should return 2, when taget is Ho. But it returns "+freq); c++; }
-
 	    /* please note subByteFreqency(0,0) is considered illeagal specification, and you should not include this case */
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAAB".getBytes());
 	    myObject.setTarget("AAAAB".getBytes());
 	    freq = myObject.subByteFrequency(0,1);
 	    if(3 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 3, when taget is AAAAB[0:1]. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAAB".getBytes());
 	    myObject.setTarget("AAAAB".getBytes());
 	    freq = myObject.subByteFrequency(1,2);
 	    if(3 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 2, when taget is AAAAB[1:2]. But it returns "+freq); c++; }
-
 	    if(2 == freq) { System.out.println("You might be confused by the intentional error in sample code.");   }
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAAB".getBytes());
 	    myObject.setTarget("AAAAB".getBytes());
 	    freq = myObject.subByteFrequency(1,3);
 	    if(2 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 2, when taget is AAAAB[1:3]. But it returns "+freq); c++; }
-
 	    myObject = new Frequencer();
 	    myObject.setSpace("AAAB".getBytes());
 	    myObject.setTarget("AAAAB".getBytes());
@@ -160,7 +145,5 @@ public class TestCase {
 	if(c == 0) { System.out.println("TestCase OK"); }
     }
 }
-
-
 
 

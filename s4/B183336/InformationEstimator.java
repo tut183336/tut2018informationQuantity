@@ -100,10 +100,10 @@ public class InformationEstimator implements InformationEstimatorInterface {
 					value_t = myFrequencer.frequency();
 
 					if(value_t == 0.0){
-						System.out.println("result = 0通ってます");
+						//System.out.println("result = 0通ってます");
 						value_t = Double.MAX_VALUE;
 					}else if(value_t == -1){
-						System.out.println("result = -1通ってます");
+						//System.out.println("result = -1通ってます");
 						value_t =  (Double)0.0;
 					}else{
 						value_t = (iq((int)value_t));
