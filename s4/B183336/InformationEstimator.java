@@ -80,10 +80,10 @@ public class InformationEstimator implements InformationEstimatorInterface {
 				//System.out.println(myFrequencer.printTarget()+"は Iq = "+result+"です。"+"また、frequencyは"+myFrequencer.frequency());
 				double result = myFrequencer.frequency();
 				if(result == 0.0){
-					System.out.println("result = 0通ってます");
+					//System.out.println("result = 0通ってます");
 					result = Double.MAX_VALUE;
 				}else if(result == -1){
-					System.out.println("result = -1通ってます");
+					//System.out.println("result = -1通ってます");
 					result = 0.0;
 				}else{
 					result = (iq((int)result));

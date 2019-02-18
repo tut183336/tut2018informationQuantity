@@ -538,7 +538,7 @@ public class Frequencer implements FrequencerInterface{
 	Frequencer frequencerObject;
 
 	    frequencerObject = new Frequencer();
-	    frequencerObject.setSpace("AAAB".getBytes());
+	    frequencerObject.setSpace("AAAAB".getBytes());
 	    //frequencerObject.printSuffixArray(); // you may use this line for DEBUG
 	    /* Example from "Hi Ho Hi Ho"
 	       0: Hi Ho
@@ -556,7 +556,7 @@ public class Frequencer implements FrequencerInterface{
 
 	    frequencerObject.setTarget("AAAAB".getBytes());
 
-	    int freq = frequencerObject.subByteFrequency(0,1);
+	    //int freq = frequencerObject.subByteFrequency(0,1);
 
 	    //
 	    // ****  Please write code to check subByteStartIndex, and subByteEndIndex
